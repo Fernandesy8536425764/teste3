@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-reddit-light text-reddit-text font-sans;
+  }
+  
+  .dark {
+    @apply bg-reddit-dark text-white;
+  }
+}
+
+@layer components {
+  .reddit-card {
+    @apply bg-white rounded-lg shadow-sm border border-reddit-border p-4 hover:shadow-md transition-shadow;
+  }
+  
+  .dark .reddit-card {
+    @apply bg-gray-800 border-gray-700;
+  }
+  
+  .vote-button {
+    @apply flex flex-col items-center p-1 rounded hover:bg-gray-100 transition-colors;
+  }
+  
+  .dark .vote-button {
+    @apply hover:bg-gray-700;
+  }
+  
+  .vote-button.active.upvote {
+    @apply text-reddit-upvote;
+  }
+  
+  .vote-button.active.downvote {
+    @apply text-reddit-downvote;
+  }
+  
+  .category-badge {
+    @apply inline-flex items-center px-2 py-1 rounded-full text-xs font-medium;
+  }
+  
+  .sidebar-section {
+    @apply bg-white rounded-lg shadow-sm border border-reddit-border p-4 mb-4;
+  }
+  
+  .dark .sidebar-section {
+    @apply bg-gray-800 border-gray-700;
+  }
+}
