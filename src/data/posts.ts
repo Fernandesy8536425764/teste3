@@ -29,6 +29,8 @@ export interface Comment {
   createdAt: Date;
   upvotes: number;
   downvotes: number;
+  likes?: number;
+  isAuthor?: boolean;
   replies: Comment[];
   parentId?: string;
   isQuestion?: boolean;
@@ -172,14 +174,14 @@ Usamos Consul para descoberta dinâmica de serviços.
 
 ## Arquitetura Final
 
-```
+\`\`\`
 API Gateway
 ├── Auth Service
 ├── User Service  
 ├── Product Service
 ├── Order Service
 └── Notification Service
-```
+\`\`\`
 
 ## Lições Aprendidas
 
@@ -418,9 +420,9 @@ jobs:
 
 \`\`\`bash
 # Secrets no GitHub
-DATABASE_URL=${{ secrets.DATABASE_URL }}
-API_KEY=${{ secrets.API_KEY }}
-DOCKER_REGISTRY_TOKEN=${{ secrets.DOCKER_REGISTRY_TOKEN }}
+DATABASE_URL=\${{ secrets.DATABASE_URL }}
+API_KEY=\${{ secrets.API_KEY }}
+DOCKER_REGISTRY_TOKEN=\${{ secrets.DOCKER_REGISTRY_TOKEN }}
 \`\`\`
 
 ## Monitoramento
@@ -430,7 +432,7 @@ Integramos com Slack para notificações:
 - name: Notify Slack
   uses: 8398a7/action-slack@v3
   with:
-    status: ${{ job.status }}
+    status: \${{ job.status }}
     channel: '#deployments'
 \`\`\`
 
@@ -452,7 +454,7 @@ Integramos com Slack para notificações:
   uses: actions/cache@v3
   with:
     path: ~/.npm
-    key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+    key: \${{ runner.os }}-node-\${{ hashFiles('**/package-lock.json') }}
 \`\`\`
 
 ## Métricas Após Implementação
