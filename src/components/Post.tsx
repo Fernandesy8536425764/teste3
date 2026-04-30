@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { ArrowBigUp, ArrowBigDown, MessageCircle, Share2, Bookmark, Clock, Star } from 'lucide-react';
 import { Post as PostType } from '../data/posts';
 import { categories } from '../data/categories';
+import { CommentSection } from './comments/CommentSection';
 
 interface PostProps {
   post: PostType;
@@ -10,6 +12,7 @@ interface PostProps {
 }
 
 export function Post({ post, onUpvote, onDownvote, onComment }: PostProps) {
+  const [isCommentsExpanded, setIsCommentsExpanded] = useState(false);
   const category = categories.find(cat => cat.id === post.categoryId);
   const userVote = null; // TODO: Implement user vote state
   
@@ -135,8 +138,11 @@ export function Post({ post, onUpvote, onDownvote, onComment }: PostProps) {
           <div className="flex items-center justify-between pt-3 border-t border-gray-100">
             <div className="flex items-center space-x-4 text-xs text-reddit-textSecondary">
               <button
-                onClick={() => onComment?.(post.id)}
-                className="flex items-center space-x-1 hover:bg-gray-100 px-3 py-2 rounded-md transition-colors"
+                onClick={() => {
+                  setIsCommentsExpanded(!isCommentsExpanded);
+                  onComment?.(post.id);
+                }}
+                className={`flex items-center space-x-1 px-3 py-2 rounded-md transition-colors ${isCommentsExpanded ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-100'}`}
               >
                 <MessageCircle className="h-4 w-4" />
                 <span>{post.comments.length} comentário{post.comments.length !== 1 ? 's' : ''}</span>
@@ -163,6 +169,10 @@ export function Post({ post, onUpvote, onDownvote, onComment }: PostProps) {
           </div>
         </div>
       </div>
+      
+      {isCommentsExpanded && (
+        <CommentSection postId={post.id} initialComments={post.comments} />
+      )}
     </div>
   );
 }
