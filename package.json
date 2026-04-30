@@ -12,7 +12,8 @@
     "db:up": "cd packages/database && docker-compose up -d",
     "db:down": "cd packages/database && docker-compose down",
     "backend:install": "cd packages/backend && python3 -m venv venv && ./venv/bin/pip install -r requirements.txt",
-    "backend:dev": "cd packages/backend && ./venv/bin/flask --app main run --debug"
+    "backend:dev": "cd packages/backend && ./venv/bin/flask --app main run --debug",
+    "frontend:build": "cd apps/react && npm install && npm run build"
   },
   "keywords": [],
   "author": "",
